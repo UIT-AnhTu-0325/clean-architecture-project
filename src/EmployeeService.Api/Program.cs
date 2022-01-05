@@ -1,4 +1,5 @@
 using EmployeeService.Api;
+using EmployeeService.Api.Middlewares;
 using EmployeeService.Core.Interfaces.Repositories;
 using EmployeeService.Core.Interfaces.Services;
 using EmployeeService.Infrastructure.Context;
@@ -50,7 +51,14 @@ var app = builder.Build();
 
 if(app.Environment.IsDevelopment())
 {
-    app.UseDeveloperExceptionPage();
+    //app.UseDeveloperExceptionPage();
+    app.UseHttpCodeAndLogMidleware();
+}
+else
+{
+    app.UseHttpCodeAndLogMidleware();
+    app.UseHsts();
+
 }
 
 app.ConfigureSwagger();
