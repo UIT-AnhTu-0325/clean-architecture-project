@@ -21,7 +21,14 @@ namespace EmployeeService.Api
                 throw new ArgumentNullException(nameof(configuration));
             }
 
-            services.AddDbContext<EmployeeDbContext>(options => options.UseInMemoryDatabase("InMem"));
+            string dbConnectionString = String.Empty;
+            dbConnectionString = configuration.GetConnectionString("Employee");
+            Console.WriteLine(dbConnectionString);
+
+            services.AddDbContext<EmployeeDbContext>(
+                optionsAction: options => options.UseSqlServer(dbConnectionString),
+                contextLifetime: ServiceLifetime.Transient,
+                optionsLifetime: ServiceLifetime.Transient);
 
             services.AddScoped<IEmployeeService, EmployeeService.Core.Services.EmployeeService>();
             services.AddScoped<IEmployeeRepository, EmployeeRepository>();

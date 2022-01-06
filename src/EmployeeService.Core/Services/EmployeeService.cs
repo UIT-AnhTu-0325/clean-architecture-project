@@ -20,21 +20,36 @@ namespace EmployeeService.Core.Services
             _employeeRepository = employeeRepository??throw new ArgumentNullException(nameof(employeeRepository));
             _logger = logger??throw new ArgumentNullException(nameof(logger));
         }   
-        public async Task<bool> CreateEmployee(Employee employee)
+        public async Task<Employee> CreateEmployee(Employee employee)
         {
-            throw new NotImplementedException();
+            try
+            {
+                return await _employeeRepository.CreateEmployee(employee);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Error while trying to call CreateEmployees in service class, Error Message = {ex}.");
+                throw;
+            }
         }
 
         public async Task<bool> DeleteEmployee(int id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                return await _employeeRepository.DeleteEmployee(id);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Error while trying to call DeleteEmployee in service class, Error Message = {ex}.");
+                throw;
+            }
         }
 
         public async Task<IEnumerable<Employee>> GetAllEmployees()
         {
             try
             {
-                //throw new Exception("Error");
                 return await _employeeRepository.GetAllEmployees();
             }
             catch (Exception ex)
@@ -46,7 +61,28 @@ namespace EmployeeService.Core.Services
 
         public async Task<Employee> GetEmployeeById(int id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                return await _employeeRepository.GetEmployeeById(id);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Error while trying to call GetEmployeeById in service class, Error Message = {ex}.");
+                throw;
+            }
+        }
+
+        public async Task<Object> UpdateEmployee(int id, Employee employee)
+        {
+            try
+            {
+                return await _employeeRepository.UpdateEmployee(id, employee);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Error while trying to call UpdateEmployee in service class, Error Message = {ex}.");
+                throw;
+            }
         }
     }
 }
