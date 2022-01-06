@@ -34,7 +34,7 @@ namespace EmployeeService.Core.Services
         {
             try
             {
-                throw new Exception("Error");
+                //throw new Exception("Error");
                 return await _employeeRepository.GetAllEmployees();
             }
             catch (Exception ex)
