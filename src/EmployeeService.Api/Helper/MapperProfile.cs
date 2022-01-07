@@ -7,6 +7,7 @@ namespace EmployeeService.Api.Helper
         public MapperProfile()
         {
             CreateMap<Infrastructure.Entities.Employee, Core.Models.Employee>().ReverseMap();
+            CreateMap<Infrastructure.Entities.User, Core.Models.User>().ReverseMap();
 
         }
     }

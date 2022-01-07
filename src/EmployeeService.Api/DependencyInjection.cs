@@ -1,4 +1,5 @@
-﻿using EmployeeService.Core.Interfaces.Repositories;
+﻿using EmployeeService.Api.Helper;
+using EmployeeService.Core.Interfaces.Repositories;
 using EmployeeService.Core.Interfaces.Services;
 using EmployeeService.Core.Services;
 using EmployeeService.Infrastructure.Context;
@@ -23,7 +24,8 @@ namespace EmployeeService.Api
 
             string dbConnectionString = String.Empty;
             dbConnectionString = configuration.GetConnectionString("Employee");
-            Console.WriteLine(dbConnectionString);
+
+            services.AddCors();
 
             services.AddDbContext<EmployeeDbContext>(
                 optionsAction: options => options.UseSqlServer(dbConnectionString),
@@ -32,6 +34,9 @@ namespace EmployeeService.Api
 
             services.AddScoped<IEmployeeService, EmployeeService.Core.Services.EmployeeService>();
             services.AddScoped<IEmployeeRepository, EmployeeRepository>();
+            services.AddScoped<IUserService, EmployeeService.Core.Services.UserService>();
+            services.AddScoped<IUserRepository,UserRepository>();
+            services.AddScoped<JwtService>();
             services.AddHttpClient();
             return services;
         }
