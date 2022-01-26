@@ -20,25 +20,71 @@ namespace EmployeeService.Infrastructure.Repositories
             _dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         }
-        public async Task<bool> CreateEmployee(Employee employee)
+        public async Task<Employee> CreateEmployee(Employee employee)
         {
-            throw new NotImplementedException();
+            var dbEmployee = _mapper.Map<Entities.Employee>(employee);
+            await _dbContext.Employees.AddAsync(dbEmployee);
+            await _dbContext.SaveChangesAsync();
+            return employee;
         }
 
         public async Task<bool> DeleteEmployee(int id)
         {
-            throw new NotImplementedException();
+            var employee = await _dbContext.Employees.FindAsync(id);
+            if (employee != null)
+            {
+                _dbContext.Employees.Remove(employee);
+                await _dbContext.SaveChangesAsync();
+                return true;
+            }
+            return false;
         }
 
         public async Task<IEnumerable<Employee>> GetAllEmployees()
         {
-            var dbEmployees = await _dbContext.Emloyees.ToListAsync().ConfigureAwait(false);
-            return _mapper.Map<IEnumerable<Employee>>(dbEmployees);
+            var employees = await _dbContext.Employees.ToListAsync().ConfigureAwait(false);
+            return _mapper.Map<IEnumerable<Employee>>(employees);
         }
 
         public async Task<Employee> GetEmployeeById(int id)
         {
-            throw new NotImplementedException();
+            var employee = await _dbContext.Employees.FindAsync(id);
+            if(employee != null)
+            {
+                return _mapper.Map<Employee>(employee);
+            }
+            return null;
+        }
+
+        public async Task<Object> UpdateEmployee(int id, Employee employee)
+        {
+            var dbEmployee = await _dbContext.Employees.FindAsync(id);
+            if (dbEmployee == null)
+            {
+                return new { message = "Not found!" };
+            }
+            //if (dbEmployee.UpdatedAt != employee.UpdatedAt)
+            //{
+            //    return new { message = "Employee has been updated, please refresh the page!\n",
+            //        update = $"{dbEmployee.UpdatedAt}\n",
+            //        update2 = $"{employee.UpdatedAt}\n"
+            //    };
+            //}
+            dbEmployee.Name = employee.Name;
+            dbEmployee.Address = employee.Address;
+            dbEmployee.Role = employee.Role;
+            dbEmployee.PhoneNumber = employee.PhoneNumber;
+            dbEmployee.Gender = employee.Gender;
+            dbEmployee.Email = employee.Email;
+            dbEmployee.Dob = employee.Dob;
+            //dbEmployee.ImageUrl = employee.ImageUrl;
+            dbEmployee.UpdatedAt = DateTime.Now;
+
+            // Update employee
+            _dbContext.Employees.Update(dbEmployee);
+            //Commit
+            await _dbContext.SaveChangesAsync();
+            return new { message = "Update success!", employee = dbEmployee };
         }
     }
 }

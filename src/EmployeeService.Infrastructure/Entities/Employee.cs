@@ -10,12 +10,17 @@ namespace EmployeeService.Infrastructure.Entities
     public class Employee
     {
         [Key]
-        [Required]
         public int Id { get; set; }
         [Required]
         public string Name { get; set; }
         [Required]
         public string Address { get; set; }
+        [Required]
+        public string Email { get; set; }
+        [Required]
+        public string PhoneNumber { get; set; }
+        [Required]
+        public string Gender { get; set; }
         //[Required]
         //public string ImageUrl { get; set; }
         [Required]
