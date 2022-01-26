@@ -26,6 +26,7 @@ export const SignIn = (props) => {
     const content = await response.json();
     if (content.hasOwnProperty("jwtString")) {
       localStorage.setItem("jwt", content["jwtString"]);
+      localStorage.setItem("user", JSON.stringify(content["employee"]));
       window.location.reload();
       setRedirect(true);
     }

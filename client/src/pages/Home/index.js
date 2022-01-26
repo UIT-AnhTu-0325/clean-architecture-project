@@ -39,17 +39,19 @@ export const Homepage = (props) => {
   const [editData, setEditData] = useState(false);
 
   const checkEditData = () => {
-    // if (
-    //   route.idEnterprise &&
-    //   route.startLocation &&
-    //   route.endLocation &&
-    //   route.startTime &&
-    //   route.totalTime
-    // ) {
-    //   setEditData(true);
-    // } else {
-    //   setEditData(false);
-    // }
+    if (
+      employee.name &&
+      employee.address &&
+      employee.email &&
+      employee.phoneNumber &&
+      employee.gender &&
+      employee.role &&
+      employee.dob
+    ) {
+      setEditData(true);
+    } else {
+      setEditData(false);
+    }
   };
 
   const handleModalShow = (employee = []) => {
@@ -113,7 +115,7 @@ export const Homepage = (props) => {
       "Gender",
       "Role",
       "Dob",
-      "Tùy chọn",
+      "Options",
     ],
     body: [],
   };
@@ -134,29 +136,28 @@ export const Homepage = (props) => {
           <td>{emp.gender}</td>
           <td>{emp.role}</td>
           <td>{emp.dob}</td>
-          <td>
-            <button
-              className="edit"
-              onClick={() => {
-                handleModalShow(emp);
-              }}
-            >
-              Sửa
-            </button>
-            <button
-              className="delete"
-              onClick={() => {
-                delEmployee(emp);
-              }}
-            >
-              Xóa
-            </button>
-            {/* <Link to={`user/${user._id}/info`}>
-              <button className="detail" onClick={() => {}}>
-                Chi tiết
+          {JSON.parse(localStorage.getItem("user")).role === "Admin" ? (
+            <td>
+              <button
+                className="edit"
+                onClick={() => {
+                  handleModalShow(emp);
+                }}
+              >
+                Sửa
               </button>
-            </Link> */}
-          </td>
+              <button
+                className="delete"
+                onClick={() => {
+                  delEmployee(emp);
+                }}
+              >
+                Xóa
+              </button>
+            </td>
+          ) : (
+            <></>
+          )}
         </tr>
       );
     }
@@ -181,6 +182,60 @@ export const Homepage = (props) => {
                 placeholder={``}
                 onChange={(e) => {
                   setEmployee({ ...employee, name: e.target.value });
+                  checkEditData();
+                }}
+              />
+              <InputTitleLeft
+                title="Address"
+                value={employee.address}
+                placeholder={``}
+                onChange={(e) => {
+                  setEmployee({ ...employee, address: e.target.value });
+                  checkEditData();
+                }}
+              />
+              <InputTitleLeft
+                title="Email"
+                value={employee.email}
+                placeholder={``}
+                onChange={(e) => {
+                  setEmployee({ ...employee, email: e.target.value });
+                  checkEditData();
+                }}
+              />
+              <InputTitleLeft
+                title="Phone Number"
+                value={employee.phoneNumber}
+                placeholder={``}
+                onChange={(e) => {
+                  setEmployee({ ...employee, phoneNumber: e.target.value });
+                  checkEditData();
+                }}
+              />
+              <InputTitleLeft
+                title="Gender"
+                value={employee.gender}
+                placeholder={``}
+                onChange={(e) => {
+                  setEmployee({ ...employee, gender: e.target.value });
+                  checkEditData();
+                }}
+              />
+              <InputTitleLeft
+                title="Role"
+                value={employee.role}
+                placeholder={``}
+                onChange={(e) => {
+                  setEmployee({ ...employee, role: e.target.value });
+                  checkEditData();
+                }}
+              />
+              <InputTitleLeft
+                title="Dob"
+                value={employee.dob}
+                placeholder={``}
+                onChange={(e) => {
+                  setEmployee({ ...employee, dob: e.target.value });
                   checkEditData();
                 }}
               />

@@ -24,7 +24,7 @@ export const NotAuthorized = (props) => {
               navigate("/signin");
             }}
           >
-            Back to Login
+            Back to Home
           </Button>
         }
       />
