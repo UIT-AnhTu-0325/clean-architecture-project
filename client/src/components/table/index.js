@@ -19,15 +19,8 @@ export const Table = (props) => {
         ) : (
           ""
         )}
-        {props.bodyData && props.renderBody ? (
-          <tbody>
-            {props.bodyData.map((item, ind) => props.renderBody(item, ind))}
-          </tbody>
-        ) : (
-          ""
-        )}
-        {props.render2Body ? (
-          <tbody className="detail-tab">{props.render2Body()}</tbody>
+        {props.renderBody ? (
+          <tbody className="detail-tab">{props.renderBody()}</tbody>
         ) : (
           ""
         )}

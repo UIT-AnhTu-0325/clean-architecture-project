@@ -2,7 +2,7 @@ import "./App.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { SignIn } from "./pages/SignIn";
 import { NotAuthorized } from "./pages/NotAuthorized";
-import { Nav } from "./components/Nav";
+import { Nav } from "./components/nav";
 import { SignUp } from "./pages/SignUp";
 import { Homepage } from "./pages/Home";
 

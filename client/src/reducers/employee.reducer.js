@@ -14,6 +14,8 @@ export default (state = initState, action) => {
         employees: action.payload,
       };
       break;
+    case employeeConstants.EDIT_EMPLOYEE_SUCCESS:
+      break;
     default:
   }
   return state;

@@ -1,5 +1,5 @@
 import React from "react";
-import "./selectbox.css";
+import "./style.css";
 /**
  * @author
  * @function SelectBox

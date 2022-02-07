@@ -1,12 +1,13 @@
 import React from "react";
+import PropTypes from "prop-types";
+import "./style.css";
 
-import "./inputtitleleft.css";
 /**
  * @author
  * @function InputTitleLeft
  **/
 
-export const InputTitleLeft = (props) => {
+const InputTitleLeft = (props) => {
   return (
     <div>
       <div className="input-title-left">
@@ -24,3 +25,14 @@ export const InputTitleLeft = (props) => {
     </div>
   );
 };
+
+InputTitleLeft.propTypes = {
+  type: PropTypes.string,
+  title: PropTypes.string,
+  value: PropTypes.string,
+  onChange: PropTypes.func,
+  placeholder: PropTypes.string,
+  //onKeyUp: PropTypes.func,
+};
+
+export default InputTitleLeft;

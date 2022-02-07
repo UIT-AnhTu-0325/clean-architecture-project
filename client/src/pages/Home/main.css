@@ -14,7 +14,6 @@
   border-radius: var(--border-radius);
   border: none;
 }
-
 .full-height {
   height: 100%;
 }
@@ -32,4 +31,11 @@
   font-size: 1.4rem;
   text-transform: capitalize;
   cursor: pointer;
+}
+.title-of-table {
+  width: fit-content;
+  display: flex;
+}
+.title-of-table .tooltip-del {
+  margin-left: 5px;
 }
