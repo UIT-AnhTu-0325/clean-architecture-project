@@ -114,6 +114,13 @@ export const Homepage = (props) => {
     setIsModalVisible(false);
   };
 
+  const setData = (employee) => {
+    setSelectedEmployee(employee);
+    //Not update immediate, Why ??
+    //console.log(selectedEmployee);
+    //console.log(employee);
+  };
+
   return (
     <div>
       <div className="card">
@@ -141,6 +148,7 @@ export const Homepage = (props) => {
         onOk={handleModalOk}
         onCancel={handleModalClose}
         employeeData={selectedEmployee}
+        setParentData={setData}
       ></ModalCustom>
     </div>
   );

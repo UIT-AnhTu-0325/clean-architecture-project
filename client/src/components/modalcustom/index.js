@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { Modal } from "antd";
 import InputTitleLeft from "../ui/input_title_left";
@@ -9,14 +9,27 @@ import InputTitleLeft from "../ui/input_title_left";
  **/
 
 const ModalCustom = (props) => {
-  const employee = props.employeeData;
+  const [employee, setEmployee] = useState();
+
+  useEffect(() => {
+    setEmployee(props.employeeData);
+  }, [props.employeeData]);
+
+  const handleModalOk = () => {
+    props.setParentData(employee);
+    props.onOk();
+  };
+
+  const handleModalClose = () => {
+    props.onCancel();
+  };
 
   return (
     <Modal
       title={props.title}
       visible={props.visible}
-      onOk={props.onOk}
-      onCancel={props.onCancel}
+      onOk={handleModalOk}
+      onCancel={handleModalClose}
       okText="Save"
     >
       <InputTitleLeft
@@ -24,7 +37,7 @@ const ModalCustom = (props) => {
         value={employee?.name}
         placeholder={``}
         onChange={(e) => {
-          //setEmployee({ ...employee, name: e.target.value });
+          setEmployee({ ...employee, name: e.target.value });
           //checkEditData();
         }}
       />
@@ -33,7 +46,7 @@ const ModalCustom = (props) => {
         value={employee?.address}
         placeholder={``}
         onChange={(e) => {
-          //setEmployee({ ...employee, address: e.target.value });
+          setEmployee({ ...employee, address: e.target.value });
           //checkEditData();
         }}
       />
@@ -42,7 +55,7 @@ const ModalCustom = (props) => {
         value={employee?.email}
         placeholder={``}
         onChange={(e) => {
-          //setEmployee({ ...employee, email: e.target.value });
+          setEmployee({ ...employee, email: e.target.value });
           //checkEditData();
         }}
       />
@@ -51,7 +64,7 @@ const ModalCustom = (props) => {
         value={employee?.phoneNumber}
         placeholder={``}
         onChange={(e) => {
-          //setEmployee({ ...employee, phoneNumber: e.target.value });
+          setEmployee({ ...employee, phoneNumber: e.target.value });
           //checkEditData();
         }}
       />
@@ -60,7 +73,7 @@ const ModalCustom = (props) => {
         value={employee?.gender}
         placeholder={``}
         onChange={(e) => {
-          //setEmployee({ ...employee, gender: e.target.value });
+          setEmployee({ ...employee, gender: e.target.value });
           //checkEditData();
         }}
       />
@@ -69,7 +82,7 @@ const ModalCustom = (props) => {
         value={employee?.role}
         placeholder={``}
         onChange={(e) => {
-          //setEmployee({ ...employee, role: e.target.value });
+          setEmployee({ ...employee, role: e.target.value });
           //checkEditData();
         }}
       />
@@ -78,7 +91,7 @@ const ModalCustom = (props) => {
         value={employee?.dob}
         placeholder={``}
         onChange={(e) => {
-          //setEmployee({ ...employee, dob: e.target.value });
+          setEmployee({ ...employee, dob: e.target.value });
           //checkEditData();
         }}
       />
@@ -100,6 +113,7 @@ ModalCustom.propTypes = {
     role: PropTypes.string,
     dob: PropTypes.string,
   }),
+  setParentData: PropTypes.func,
 };
 
 export default ModalCustom;
