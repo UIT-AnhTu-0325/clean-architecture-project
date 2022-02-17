@@ -28,7 +28,10 @@ namespace EmployeeService.Api
             services.AddCors();
 
             services.AddDbContext<EmployeeDbContext>(
-                optionsAction: options => options.UseSqlServer(dbConnectionString),
+                optionsAction: options => options.UseSqlServer(dbConnectionString, builder =>
+                {
+                    builder.EnableRetryOnFailure(5, TimeSpan.FromSeconds(10), null);
+                }),
                 contextLifetime: ServiceLifetime.Transient,
                 optionsLifetime: ServiceLifetime.Transient);
 

@@ -68,7 +68,7 @@ export const Homepage = (props) => {
       dataIndex: "idEmployee",
       width: "10%",
       align: "center",
-      render: () => (
+      render: (id) => (
         <div>
           {role === "Admin" && (
             <div className="title-of-table">
@@ -76,7 +76,7 @@ export const Homepage = (props) => {
                 <Button
                   type="primary"
                   icon={<EditOutlined />}
-                  onClick={handleModalShow}
+                  onClick={() => handleModalShow(id)}
                 />
               </Tooltip>
               <Tooltip className="tooltip-del" title="Delete">
