@@ -1,37 +1,42 @@
-import axios from "../helpers/axios";
+import { edit, getAll } from "../api/employee.api";
 import { employeeConstants } from "./constants";
 
 export const getAllEmployees = () => {
   return async (dispatch) => {
     dispatch({ type: employeeConstants.GET_ALL_EMPLOYEES_REQUEST });
     try {
-      const res = await axios.get(`Employee`);
+      const res = await getAll();
       if (res.status === 200) {
         dispatch({
           type: employeeConstants.GET_ALL_EMPLOYEES_SUCCESS,
           payload: res.data,
         });
       }
-    } catch {
+    } catch (e) {
       dispatch({
         type: employeeConstants.GET_ALL_EMPLOYEES_FAILURE,
+        payload: e,
       });
     }
   };
 };
 
-export const editEmployee = (form) => {
+export const editEmployee = (employee) => {
   return async (dispatch) => {
-    dispatch({ type: employeeConstants.EDIT_EMPLOYEES_REQUEST });
+    dispatch({ type: employeeConstants.EDIT_EMPLOYEE_REQUEST });
     try {
-      const res = await axios.post(`Employee`, form);
-      dispatch({
-        type: employeeConstants.EDIT_EMPLOYEES_SUCCESS,
-        payload: res.data,
-      });
+      //console.log(employee);
+      const res = await edit(employee.id, employee);
+      if (res.status === 200) {
+        dispatch({
+          type: employeeConstants.EDIT_EMPLOYEE_SUCCESS,
+          payload: res.data,
+        });
+      }
     } catch (e) {
       dispatch({
-        type: employeeConstants.EDIT_EMPLOYEES_FALURE,
+        type: employeeConstants.EDIT_EMPLOYEE_FALURE,
+        payload: e,
       });
     }
   };

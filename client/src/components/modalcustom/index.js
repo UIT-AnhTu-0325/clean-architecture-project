@@ -10,10 +10,11 @@ import InputTitleLeft from "../ui/input_title_left";
 
 const ModalCustom = (props) => {
   const [employee, setEmployee] = useState();
+  const [isSaveable, setIsSaveable] = useState(true);
 
   useEffect(() => {
-    setEmployee(props.employeeData);
-  }, [props.employeeData]);
+    setEmployee(props.data);
+  }, [props.visible, props.data]);
 
   const handleModalOk = () => {
     props.setParentData(employee);
@@ -24,11 +25,28 @@ const ModalCustom = (props) => {
     props.onCancel();
   };
 
+  const checkEditData = () => {
+    if (
+      employee.name &&
+      employee.address &&
+      employee.email &&
+      employee.phoneNumber &&
+      employee.gender &&
+      employee.role &&
+      employee.dob
+    ) {
+      setIsSaveable(true);
+    } else {
+      setIsSaveable(false);
+    }
+  };
+
   return (
     <Modal
       title={props.title}
       visible={props.visible}
       onOk={handleModalOk}
+      okButtonProps={isSaveable === true ? {} : { disabled: true }}
       onCancel={handleModalClose}
       okText="Save"
     >
@@ -38,7 +56,7 @@ const ModalCustom = (props) => {
         placeholder={``}
         onChange={(e) => {
           setEmployee({ ...employee, name: e.target.value });
-          //checkEditData();
+          checkEditData();
         }}
       />
       <InputTitleLeft
@@ -47,7 +65,7 @@ const ModalCustom = (props) => {
         placeholder={``}
         onChange={(e) => {
           setEmployee({ ...employee, address: e.target.value });
-          //checkEditData();
+          checkEditData();
         }}
       />
       <InputTitleLeft
@@ -56,7 +74,7 @@ const ModalCustom = (props) => {
         placeholder={``}
         onChange={(e) => {
           setEmployee({ ...employee, email: e.target.value });
-          //checkEditData();
+          checkEditData();
         }}
       />
       <InputTitleLeft
@@ -65,7 +83,7 @@ const ModalCustom = (props) => {
         placeholder={``}
         onChange={(e) => {
           setEmployee({ ...employee, phoneNumber: e.target.value });
-          //checkEditData();
+          checkEditData();
         }}
       />
       <InputTitleLeft
@@ -74,7 +92,7 @@ const ModalCustom = (props) => {
         placeholder={``}
         onChange={(e) => {
           setEmployee({ ...employee, gender: e.target.value });
-          //checkEditData();
+          checkEditData();
         }}
       />
       <InputTitleLeft
@@ -83,7 +101,7 @@ const ModalCustom = (props) => {
         placeholder={``}
         onChange={(e) => {
           setEmployee({ ...employee, role: e.target.value });
-          //checkEditData();
+          checkEditData();
         }}
       />
       <InputTitleLeft
@@ -92,7 +110,7 @@ const ModalCustom = (props) => {
         placeholder={``}
         onChange={(e) => {
           setEmployee({ ...employee, dob: e.target.value });
-          //checkEditData();
+          checkEditData();
         }}
       />
     </Modal>
@@ -104,7 +122,7 @@ ModalCustom.propTypes = {
   visible: PropTypes.bool,
   onOk: PropTypes.func,
   onCancel: PropTypes.func,
-  employeeData: PropTypes.shape({
+  data: PropTypes.shape({
     name: PropTypes.string,
     address: PropTypes.string,
     email: PropTypes.string,

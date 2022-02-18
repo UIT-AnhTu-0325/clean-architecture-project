@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllEmployees } from "../../actions/employee.action";
+import { editEmployee, getAllEmployees } from "../../actions/employee.action";
 import { Button, Table, Tooltip } from "antd";
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 import moment from "moment";
@@ -16,14 +16,31 @@ export const Homepage = (props) => {
   const state_employees = useSelector((state) => state.employee.employees);
 
   const [role, setRole] = useState("Admin");
+
   const [isModalVisible, setIsModalVisible] = useState(false);
-  const [selectedEmployee, setSelectedEmployee] = useState();
+
+  const [selectedEmployee, setSelectedEmployee] = useState({
+    id: 0,
+    name: "",
+    address: "",
+    createAt: "",
+    updateAt: "",
+    dob: "",
+    email: "",
+    gender: "",
+    phoneNumber: "",
+    role: "",
+  });
+
+  const [isUpdate_flag, setIsUpdate_flag] = useState(false);
 
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getAllEmployees());
   }, []);
+
+  useEffect(() => updateEmployeee(selectedEmployee), [selectedEmployee]);
 
   const columns = [
     {
@@ -65,10 +82,10 @@ export const Homepage = (props) => {
     },
     {
       title: "",
-      dataIndex: "idEmployee",
+      dataIndex: "id",
       width: "10%",
       align: "center",
-      render: (id) => (
+      render: (dataIndex) => (
         <div>
           {role === "Admin" && (
             <div className="title-of-table">
@@ -76,7 +93,7 @@ export const Homepage = (props) => {
                 <Button
                   type="primary"
                   icon={<EditOutlined />}
-                  onClick={() => handleModalShow(id)}
+                  onClick={() => handleModalShow(dataIndex)}
                 />
               </Tooltip>
               <Tooltip className="tooltip-del" title="Delete">
@@ -89,20 +106,16 @@ export const Homepage = (props) => {
     },
   ];
 
+  var getEmployeeById = (id) => {
+    return state_employees.find((element) => element.id === id);
+  };
+
   const onPageChange = (page, pageSize) => {
     console.log(pageSize);
   };
 
-  const handleModalShow = () => {
-    setSelectedEmployee({
-      name: "a",
-      address: "a",
-      email: "a",
-      phoneNumber: "a",
-      gender: "a",
-      role: "a",
-      dob: "a",
-    });
+  const handleModalShow = (id) => {
+    setSelectedEmployee(getEmployeeById(id));
     setIsModalVisible(true);
   };
 
@@ -116,9 +129,15 @@ export const Homepage = (props) => {
 
   const setData = (employee) => {
     setSelectedEmployee(employee);
-    //Not update immediate, Why ??
-    //console.log(selectedEmployee);
-    //console.log(employee);
+    setIsUpdate_flag(true);
+  };
+
+  const updateEmployeee = (employee) => {
+    if (isUpdate_flag) {
+      console.log("Call Api to update employee", employee);
+      dispatch(editEmployee(employee));
+    }
+    setIsUpdate_flag(false);
   };
 
   return (
@@ -131,7 +150,6 @@ export const Homepage = (props) => {
           <Table
             dataSource={state_employees}
             columns={columns}
-            scroll={{ y: 240 }}
             pagination={{
               defaultPageSize: 10,
               showSizeChanger: true,
@@ -147,8 +165,8 @@ export const Homepage = (props) => {
         visible={isModalVisible}
         onOk={handleModalOk}
         onCancel={handleModalClose}
-        employeeData={selectedEmployee}
         setParentData={setData}
+        data={selectedEmployee}
       ></ModalCustom>
     </div>
   );

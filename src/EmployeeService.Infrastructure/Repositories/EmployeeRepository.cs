@@ -63,6 +63,7 @@ namespace EmployeeService.Infrastructure.Repositories
             {
                 return new { message = "Not found!" };
             }
+
             //if (dbEmployee.UpdatedAt != employee.UpdatedAt)
             //{
             //    return new { message = "Employee has been updated, please refresh the page!\n",
@@ -70,6 +71,7 @@ namespace EmployeeService.Infrastructure.Repositories
             //        update2 = $"{employee.UpdatedAt}\n"
             //    };
             //}
+
             dbEmployee.Name = employee.Name;
             dbEmployee.Address = employee.Address;
             dbEmployee.Role = employee.Role;
@@ -77,11 +79,10 @@ namespace EmployeeService.Infrastructure.Repositories
             dbEmployee.Gender = employee.Gender;
             dbEmployee.Email = employee.Email;
             dbEmployee.Dob = employee.Dob;
-            //dbEmployee.ImageUrl = employee.ImageUrl;
             dbEmployee.UpdatedAt = DateTime.Now;
 
             // Update employee
-            _dbContext.Employees.Update(dbEmployee);
+            //_dbContext.Employees.Update(dbEmployee);
             //Commit
             await _dbContext.SaveChangesAsync();
             return new { message = "Update success!", employee = dbEmployee };
