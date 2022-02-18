@@ -29,8 +29,7 @@ CREATE TABLE Users
 
 INSERT INTO Employees(Name, Address, Email, Phonenumber, Gender, Role, Dob, CreatedAt, UpdatedAt) 
 VALUES 
-('John', 'Ha Noi', 'test1@gmail.com', '0343276423', 'Male', 'Admin', '10/01/1999', GETDATE(), GETDATE()),
-('Brim', 'Ha Noi', 'test1@gmail.com', '0343276423', 'Male', 'User', '10/01/1999', GETDATE(), GETDATE())
+('John22', 'Ha Noi', 'test1@gmail.com', '0343276423', 'Male', 'Admin', '10/01/1999', GETDATE(), GETDATE())
 
 
 INSERT INTO Users(IdEmployee, Username, Password) 

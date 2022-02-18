@@ -1,6 +1,7 @@
 import React, { useEffect, useState, SyntheticEvent } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, Navigate } from "react-router-dom";
+import { signinAction } from "../../actions/auth.action";
 
 /**
  * @author
@@ -12,31 +13,36 @@ export const SignIn = (props) => {
   const [password, setPassword] = useState("");
   const [redirect, setRedirect] = useState(false);
 
-  const submit = async (e) => {
-    e.preventDefault();
-    const response = await fetch("https://localhost:44304/api/SignIn", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      credentials: "include",
-      body: JSON.stringify({
-        username,
-        password,
-      }),
-    });
-    const content = await response.json();
-    if (content.hasOwnProperty("jwtString")) {
-      localStorage.setItem("jwt", content["jwtString"]);
-      localStorage.setItem("user", JSON.stringify(content["employee"]));
-      window.location.reload();
+  const isSignInSuccess = useSelector((state) => state.Auth.isSuccess);
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (isSignInSuccess === true) {
       setRedirect(true);
     }
+  }, [isSignInSuccess]);
+
+  const submit = async (e) => {
+    e.preventDefault();
+    dispatch(
+      signinAction(
+        JSON.stringify({
+          username,
+          password,
+        })
+      )
+    );
   };
+
   if (redirect) {
     return <Navigate to="/" />;
   }
+
   if (localStorage.getItem("jwt") !== null) {
     return <Navigate to="/" />;
   }
+
   return (
     <main class="form-signin">
       <form onSubmit={submit}>

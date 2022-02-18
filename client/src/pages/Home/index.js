@@ -111,7 +111,7 @@ export const Homepage = (props) => {
   };
 
   const onPageChange = (page, pageSize) => {
-    console.log(pageSize);
+    console.log(page);
   };
 
   const handleModalShow = (id) => {
@@ -151,9 +151,9 @@ export const Homepage = (props) => {
             dataSource={state_employees}
             columns={columns}
             pagination={{
-              defaultPageSize: 10,
+              defaultPageSize: 5,
               showSizeChanger: true,
-              pageSizeOptions: ["10", "15", "20"],
+              pageSizeOptions: ["5", "10", "20"],
               onChange: onPageChange,
             }}
           />

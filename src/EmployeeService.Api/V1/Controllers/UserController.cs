@@ -21,28 +21,6 @@ namespace EmployeeService.Api.V1.Controllers
 
         }
 
-        // Create Employee
-        // Return an Employee created`
-        // Table used: Employees
-        //[HttpPost(Name = "SignUp")]
-        //[ProducesResponseType(StatusCodes.Status200OK)]
-        //[ProducesResponseType(StatusCodes.Status400BadRequest)]
-        //[ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        //[ProducesResponseType(StatusCodes.Status422UnprocessableEntity)]
-        //[ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        //public async Task<ActionResult<User>> CreateUser(User user)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return BadRequest();
-        //    }
-        //    var response = await _userService.CreateUser(user).ConfigureAwait(false);
-        //    return CreatedAtRoute(nameof(CreateUser), new { id = response.Id }, response);
-        //}
-
-        // SignIn 
-        // Return ...`
-        // Table used: User, Employee
         [HttpPost("SignIn",Name = "SignIn")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]

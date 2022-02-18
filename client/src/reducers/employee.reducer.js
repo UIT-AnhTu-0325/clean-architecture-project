@@ -36,7 +36,7 @@ export default (state = initState, action) => {
     case employeeConstants.GET_ALL_EMPLOYEES_FAILURE:
       state = {
         ...state,
-        error: action.error,
+        error: action.payload,
         loading: false,
       };
       break;
@@ -67,6 +67,7 @@ export default (state = initState, action) => {
       };
       break;
     default:
+      break;
   }
   return state;
 };
