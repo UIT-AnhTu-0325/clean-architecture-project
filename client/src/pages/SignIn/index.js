@@ -1,6 +1,6 @@
 import React, { useEffect, useState, SyntheticEvent } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, Navigate } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import { signinAction } from "../../actions/auth.action";
 
 /**
@@ -13,7 +13,7 @@ export const SignIn = (props) => {
   const [password, setPassword] = useState("");
   const [redirect, setRedirect] = useState(false);
 
-  const isSignInSuccess = useSelector((state) => state.Auth.isSuccess);
+  const isSignInSuccess = useSelector((state) => state.Auth.isLogin);
 
   const dispatch = useDispatch();
 
@@ -26,20 +26,14 @@ export const SignIn = (props) => {
   const submit = async (e) => {
     e.preventDefault();
     dispatch(
-      signinAction(
-        JSON.stringify({
-          username,
-          password,
-        })
-      )
+      signinAction({
+        username: username,
+        password: password,
+      })
     );
   };
 
   if (redirect) {
-    return <Navigate to="/" />;
-  }
-
-  if (localStorage.getItem("jwt") !== null) {
     return <Navigate to="/" />;
   }
 

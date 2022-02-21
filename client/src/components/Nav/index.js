@@ -1,5 +1,7 @@
 import React from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
+import { signinAction } from "../../actions/auth.action";
 
 /**
  * @author
@@ -7,17 +9,16 @@ import { Navigate } from "react-router-dom";
  **/
 
 export const Nav = (props) => {
+  const state_isLogin = useSelector((state) => state.Auth.isLogin);
+
+  const dispatch = useDispatch();
+
   const signOut = async (e) => {
-    await fetch("https://localhost:44304/api/SignOut", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      credentials: "include",
-    });
-    localStorage.removeItem("jwt");
+    dispatch(signinAction());
     return <Navigate to="/signin" />;
   };
   const genNav = () => {
-    if (localStorage.getItem("jwt") !== null) {
+    if (state_isLogin) {
       return (
         <ul class="navbar-nav me-auto mb-2 mb-md-0">
           <li class="nav-item">

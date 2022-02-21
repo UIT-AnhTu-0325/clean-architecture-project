@@ -2,7 +2,7 @@ import { authConstants } from "../actions/constants";
 
 /* eslint-disable import/no-anonymous-default-export */
 const initState = {
-  isSuccess: false,
+  isLogin: false,
   loading: false,
   error: null,
 };
@@ -19,14 +19,34 @@ export default (state = initState, action) => {
       state = {
         ...state,
         loading: false,
-        isSuccess: true,
+        isLogin: true,
       };
       break;
     case authConstants.SIGN_IN_FAILURE:
       state = {
         ...state,
         loading: false,
-        isSuccess: false,
+        isLogin: false,
+        error: action.payload,
+      };
+      break;
+    case authConstants.SIGN_OUT_REQUEST:
+      state = {
+        ...state,
+        loading: true,
+      };
+      break;
+    case authConstants.SIGN_OUT_SUCCESS:
+      state = {
+        ...state,
+        loading: false,
+        isLogin: false,
+      };
+      break;
+    case authConstants.SIGN_OUT_FAILURE:
+      state = {
+        ...state,
+        loading: false,
         error: action.payload,
       };
       break;
