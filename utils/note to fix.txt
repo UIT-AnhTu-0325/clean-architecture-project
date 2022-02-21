@@ -1,0 +1,31 @@
+not need update call
+
+add notracking
+
+auto mapper
+
+require attribute 
+
+chú ý format code
+
+add Authorize Middleware
+
+transient và tracking của entity
+
+
+
+localstorage tách riêng
+
+nên giữ trong state của component thôi, tránh tràn
+
+paging
+
+use memo tránh render lại
+
+if auth?.data?.
+
+sử dụng proptype
+
+chia api
+
+tách hàm 
